@@ -1,3 +1,7 @@
 body {
     font-family: 'Fira Code', monospace;
 }
+
+.mainDiv {
+    padding: 50px 50px 50px 50px;
+}

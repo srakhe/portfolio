@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 
 
 class Portfolio:
@@ -8,7 +7,14 @@ class Portfolio:
         self.url = url
         self.data = requests.get(self.url).json()
 
-    def get_info(self, key):
-        # data = self.data.get(key)
-        data = self.data
-        return data
+    def get_basic_info(self):
+        data = self.data.get("basics")
+        return_dict = {
+            "image": data.get("image"),
+            "name": data.get("name"),
+            "label": data.get("label"),
+            "summary": data.get("summary"),
+            "github": next((link["url"] for link in data.get("profiles") if link["network"] == "GitHub"), None),
+            "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None)
+        }
+        return return_dict

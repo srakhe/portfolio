@@ -7,8 +7,11 @@ port = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
 
 @app.route("/")
 def index():
-    basic_info = port.get_info(key="basics")
-    return render_template("index.html")
+    basic_info = port.get_basic_info()
+    params = {
+        "basic": basic_info
+    }
+    return render_template("index.html", params=params)
 
 
 if __name__ == "__main__":
