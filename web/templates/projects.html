@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/projects.css') }}">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,22 +44,28 @@
     </div>
 </nav>
 <div class="mainDiv">
-    <div class="jumbotron text-center">
-        <img src="{{ params.basic.image }}" class="rounded img-fluid profilePic" alt="profile picture">
-        <h1 class="display-4">{{ params.basic.name }}</h1>
-        <p class="lead">{{ params.basic.label }}</p>
-        <a class="btn btn-outline-primary" href="{{ params.basic.github }}" target="_blank">Github</a>
-        <a class="btn btn-outline-primary" href="{{ params.basic.linkedin }}" target="_blank">Linkedin</a>
-        <a class="btn btn-outline-primary" href="/" target="_blank">Contact Me</a>
-        <hr class="my-4">
-        <p id="summary">{{ params.basic.summary }}</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg position-relative" href="/">Learn more
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span>
-            </a>
-        </p>
+    <h1>Projects</h1>
+    <div id="projectsList">
+        <div class="row">
+            {% for project in params.projects: %}
+                <div class="col-sm-3">
+                    <div class="card text-primary border-primary" style="width: 18rem;">
+                        {% if loop.index0 == 0: %}
+                            <h5 class="card-header">Featured</h5>
+                        {% endif %}
+                        <div class="card-body">
+                            <h4 class="card-title">{{ project.get("name") }}</h4>
+                            <p class="card-text">{{ project.get("summary") }}</p>
+                            <a href="{{ project.get("url") }}" target="_blank" class="btn btn-primary">View Repo</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{ project.get("languages") }}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 </body>

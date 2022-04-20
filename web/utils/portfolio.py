@@ -18,3 +18,16 @@ class Portfolio:
             "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None)
         }
         return return_dict
+
+    def get_projects(self):
+        data = self.data.get("projects")
+        projects = []
+        for project in data:
+            each_pr = {
+                "name": project["name"],
+                "url": project["githubUrl"],
+                "summary": project["summary"],
+                "languages": ",".join(project["languages"])
+            }
+            projects.append(each_pr)
+        return projects

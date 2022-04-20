@@ -1,4 +1,21 @@
-.profilePic {
-    height: 300px;
-    width: 300px;
+@media all and (max-width: 750px) {
+    .profilePic {
+        height: 200px;
+        width: 200px;
+    }
+
+    a {
+        margin-bottom: 10px;
+    }
+}
+
+@media all and (min-width: 750px) {
+    .profilePic {
+        height: 300px;
+        width: 300px;
+    }
+
+    #summary {
+        margin: 50px 50px 50px 50px;
+    }
 }

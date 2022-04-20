@@ -2,16 +2,36 @@ from flask import Flask, render_template, request, url_for, redirect
 from utils.portfolio import Portfolio
 
 app = Flask(__name__)
-port = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
+portfolio = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
 
 
 @app.route("/")
 def index():
-    basic_info = port.get_basic_info()
+    basic_info = portfolio.get_basic_info()
     params = {
         "basic": basic_info
     }
     return render_template("index.html", params=params)
+
+
+@app.route("/about/")
+def about():
+    basic_info = portfolio.get_basic_info()
+    params = {
+        "basic": basic_info
+    }
+    return render_template("about.html", params=params)
+
+
+@app.route("/projects/")
+def projects():
+    basic_info = portfolio.get_basic_info()
+    projects_info = portfolio.get_projects()
+    params = {
+        "basic": basic_info,
+        "projects": projects_info
+    }
+    return render_template("projects.html", params=params)
 
 
 if __name__ == "__main__":
