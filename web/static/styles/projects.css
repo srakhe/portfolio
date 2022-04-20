@@ -1,0 +1,11 @@
+@media all and (max-width: 750px) {
+    #projectsList {
+        padding: 10px 10px 10px 10px;
+    }
+}
+
+@media all and (min-width: 750px) {
+    #projectsList {
+        padding: 70px 70px 70px 70px;
+    }
+}
