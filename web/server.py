@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect
-from utils.portfolio import Portfolio
+from web.utils.portfolio import Portfolio
 
 app = Flask(__name__)
 portfolio = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
