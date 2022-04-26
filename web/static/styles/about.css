@@ -22,3 +22,9 @@ details > summary {
 details > summary::-webkit-details-marker {
     display: none;
 }
+
+.work-link {
+    color: white;
+    font-size: x-large;
+    font-weight: bolder;
+}
