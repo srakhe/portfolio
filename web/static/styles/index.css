@@ -2,6 +2,8 @@
     .profilePic {
         height: 200px;
         width: 200px;
+        margin-bottom: 50px;
+        border-radius: 50%;
     }
 
     a {
@@ -13,6 +15,8 @@
     .profilePic {
         height: 300px;
         width: 300px;
+        margin-bottom: 50px;
+        border-radius: 20%;
     }
 
     #summary {

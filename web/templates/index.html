@@ -16,9 +16,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="icon"
+          href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/313/waving-hand_medium-skin-tone_1f44b-1f3fd_1f3fd.png">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">{{ params.basic.name }}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -28,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/about/">About Me</a>
@@ -37,24 +39,27 @@
                     <a class="nav-link" href="/projects/">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Contact Me</a>
+                    <a class="nav-link" href="/contact/">Contact Me</a>
                 </li>
             </ul>
+            <a class="btn btn-outline-light" href="/refresh/">Refresh</a>
         </div>
     </div>
 </nav>
 <div class="mainDiv">
     <div class="jumbotron text-center">
-        <img src="{{ params.basic.image }}" class="rounded img-fluid profilePic" alt="profile picture">
+        <img src="{{ params.basic.image }}" class="img-fluid profilePic" alt="profile picture">
         <h1 class="display-4">{{ params.basic.name }}</h1>
         <p class="lead">{{ params.basic.label }}</p>
-        <a class="btn btn-outline-primary" href="{{ params.basic.github }}" target="_blank">Github</a>
-        <a class="btn btn-outline-primary" href="{{ params.basic.linkedin }}" target="_blank">Linkedin</a>
-        <a class="btn btn-outline-primary" href="/" target="_blank">Contact Me</a>
+        <a class="btn btn-outline-light" href="{{ params.basic.github }}" target="_blank">Github 👨‍💻</a>
+        <a class="btn btn-outline-light" href="{{ params.basic.linkedin }}" target="_blank">Linkedin 🧑‍💼</a>
+        <a class="btn btn-outline-light" href="/" target="_blank">Contact Me 👋</a>
         <hr class="my-4">
-        <p id="summary">{{ params.basic.summary }}</p>
+        <p id="summary">{{ params.basic.title }}</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg position-relative" href="/">Learn more
+            <a class="btn btn-primary btn-lg position-relative"
+               href="{{ url_for('download', filename='resume.pdf') }}"
+               download="sambhav_resume.pdf">Get Resume 🔥
                 <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                     <span class="visually-hidden">New alerts</span>
                 </span>
