@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ params.basic.name }}</title>
+    <title>About Me - {{ params.basic.name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -15,9 +15,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/about.css') }}">
+    <link rel="icon"
+          href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/313/briefcase_1f4bc.png">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">{{ params.basic.name }}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -30,247 +33,92 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">About Me</a>
+                    <a class="nav-link active" href="/about/">About Me</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Contact Me</a>
+                    <a class="nav-link" href="/projects/">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact/">Contact Me</a>
                 </li>
             </ul>
+            <a class="btn btn-outline-light" href="/refresh/">Refresh</a>
         </div>
     </div>
 </nav>
 <div class="mainDiv">
-    <div class="container py-2 mt-4 mb-4">
-        <!-- timeline item 1 -->
-        <div class="row no-gutters">
-            <div class="col-sm"> <!--spacer--> </div>
-            <!-- timeline item 1 center dot -->
-            <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
+    <h1>About Me</h1>
+    <p>(Click title to open/close the section)</p>
+    <div class="left-tab-div">
+        <details open>
+            <summary>
+                <p class="text-justify title-text">Summary</p>
+            </summary>
+            <div class="left-tab-div">
+                <p class="text-justify">
+                    {{ params.basic.summary }}
+                </p>
+            </div>
+            <div class="left-tab-div">
+                <h4>Interests:</h4>
+                <div class="left-tab-div">
+                    <p class="text-justify">
+                        {{ params.about.interests }}.
+                    </p>
                 </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
+                <h4>Languages:</h4>
+                <div class="left-tab-div">
+                    <p class="text-justify">
+                        {{ params.about.languages }}.
+                    </p>
+                </div>
+                <h4>Skills:</h4>
+                <div class="left-tab-div">
+                    <p class="text-justify">
+                        {{ params.about.skills }}.
+                    </p>
                 </div>
             </div>
-            <!-- timeline item 1 event content -->
-            <div class="col-sm py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right text-muted small">Jan 9th 2019 7:00 AM</div>
-                        <h4 class="card-title">Day 1 Orientation</h4>
-                        <p class="card-text">Welcome to the campus, introduction and get started with the tour.</p>
-                    </div>
-                </div>
+        </details>
+        <details open>
+            <summary>
+                <p class="text-justify title-text">Work History</p>
+            </summary>
+            {% for each_work in params.about.work: %}
+            <a href="{{ each_work.url }}" class="work-link">{{ each_work.name }}</a>
+            <p style="font-size: large; margin-bottom: 3px;">
+                {{ each_work.position }}
+            </p>
+            {{ each_work.start }} - {{ each_work.end }} [{{ each_work.duration }}]
+            <br>
+            <div class="left-tab-div">
+                <p style="font-size: large;">
+                    {% autoescape false %}
+                    {{ each_work.summary }}
+                    {% endautoescape %}
+                </p>
             </div>
-        </div>
-        <!--/row-->
-        <!-- timeline item 2 -->
-        <div class="row no-gutters">
-            <div class="col-sm py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right small">Jan 10th 2019 8:30 AM</div>
-                        <h4 class="card-title">Day 2 Sessions</h4>
-                        <p class="card-text">Sign-up for the lessons and speakers that coincide with your course
-                            syllabus. Meet and greet with instructors.</p>
-                    </div>
-                </div>
+            {% endfor %}
+        </details>
+        <details open>
+            <summary>
+                <p class="text-justify title-text">Education</p>
+            </summary>
+            {% for each_edu in params.about.education: %}
+            <a href="{{ each_edu.url }}" class="work-link">{{ each_edu.name }}</a>
+            <p style="font-size: large; margin-bottom: 3px;">
+                {{ each_edu.study }}
+            </p>
+            {{ each_edu.start }} - {{ each_edu.end }} [{{ each_edu.duration }}]
+            <div class="left-tab-div">
+                <p style="font-size: large;">
+                    {% autoescape false %}
+                    {{ each_edu.summary }}
+                    {% endautoescape %}
+                </p>
             </div>
-            <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div class="col-sm"> <!--spacer--> </div>
-        </div>
-        <!--/row-->
-        <!-- timeline item 3 -->
-        <div class="row no-gutters">
-            <div class="col-sm"> <!--spacer--> </div>
-            <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div class="col-sm py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right text-muted small">Jan 11th 2019 8:30 AM</div>
-                        <h4 class="card-title">Day 3 Sessions</h4>
-                        <p>Shoreditch vegan artisan Helvetica. Tattooed Codeply Echo Park Godard kogi, next level irony
-                            ennui twee squid fap selvage. Meggings flannel Brooklyn literally small batch, mumblecore
-                            PBR try-hard kale chips. Brooklyn vinyl lumbersexual
-                            bicycle rights, viral fap cronut leggings squid chillwave pickled gentrify mustache.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/row-->
-        <!-- timeline item 4 -->
-        <div class="row no-gutters">
-            <div class="col-sm py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right text-muted small">Jan 12th 2019 11:30 AM</div>
-                        <h4 class="card-title">Day 4 Wrap-up</h4>
-                        <p>Join us for lunch in Bootsy's cafe across from the Campus Center.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div class="col-sm"> <!--spacer--> </div>
-        </div>
-        <!--/row-->
-    </div>
-    <hr>
-    <div class="container py-2 mt-4 mb-4">
-        <!-- timeline item 1 -->
-        <div class="row">
-            <!-- timeline item 1 left dot -->
-            <div class="col-auto text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <!-- timeline item 1 event content -->
-            <div class="col py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right text-muted">Mon, Jan 9th 2019 7:00 AM</div>
-                        <h4 class="card-title">Day 1 Orientation</h4>
-                        <p class="card-text">Welcome to the campus, introduction and get started with the tour.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/row-->
-        <!-- timeline item 2 -->
-        <div class="row">
-            <div class="col-auto text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div class="col py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right">Tue, Jan 10th 2019 8:30 AM</div>
-                        <h4 class="card-title">Day 2 Sessions</h4>
-                        <p class="card-text">Sign-up for the lessons and speakers that coincide with your course
-                            syllabus. Meet and greet with instructors.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/row-->
-        <!-- timeline item 3 -->
-        <div class="row">
-            <div class="col-auto text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div class="col py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right text-muted">Wed, Jan 11th 2019 8:30 AM</div>
-                        <h4 class="card-title">Day 3 Sessions</h4>
-                        <p>Shoreditch vegan artisan Helvetica. Tattooed Codeply Echo Park Godard kogi, next level irony
-                            ennui twee squid fap selvage. Meggings flannel Brooklyn literally small batch, mumblecore
-                            PBR try-hard kale chips. Brooklyn vinyl lumbersexual
-                            bicycle rights, viral fap cronut leggings squid chillwave pickled gentrify mustache. 3 wolf
-                            moon hashtag church-key Odd Future. Austin messenger bag normcore, Helvetica Williamsburg
-                            sartorial tote bag distillery Portland before
-                            they sold out gastropub taxidermy Vice.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/row-->
-        <!-- timeline item 4 -->
-        <div class="row">
-            <div class="col-auto text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                    <div class="col border-right">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                    <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                    <div class="col">&nbsp;</div>
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div class="col py-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="float-right text-muted">Thu, Jan 12th 2019 11:30 AM</div>
-                        <h4 class="card-title">Day 4 Wrap-up</h4>
-                        <p>Join us for lunch in Bootsy's cafe across from the Campus Center.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/row-->
+            {% endfor %}
+        </details>
     </div>
 </div>
 </body>

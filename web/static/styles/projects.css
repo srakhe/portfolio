@@ -9,3 +9,7 @@
         padding: 70px 70px 70px 70px;
     }
 }
+
+.card-body {
+    background-color: #EEEEEE;
+}
