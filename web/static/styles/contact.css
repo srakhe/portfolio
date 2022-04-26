@@ -1,0 +1,11 @@
+@media all and (max-width: 750px) {
+    .contactform {
+        padding: 50px 50px 50px 50px;
+    }
+}
+
+@media all and (min-width: 750px) {
+    .contactform {
+        padding: 50px 50px 50px 50px;
+    }
+}
