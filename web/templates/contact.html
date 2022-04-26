@@ -48,6 +48,28 @@
 </nav>
 <div class="mainDiv">
     <h1>Contact Me</h1>
+    <div class="contactform">
+        <form class="contactform" action="https://formspree.io/f/mqkngpqj" method="POST">
+            <br>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" class="form-control form-control-lg" id="name" placeholder="Enter name here" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" name="email" class="form-control form-control-lg" id="email" placeholder="Enter email here" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea class="form-control form-control-lg" id="message"
+                          placeholder="Enter your message here" name="message" required></textarea>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
