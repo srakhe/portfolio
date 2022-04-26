@@ -52,7 +52,7 @@
     <div class="left-tab-div">
         <details open>
             <summary>
-                <p class="text-justify title-text">Summary</p>
+                <p class="text-justify title-text">✨ Summary</p>
             </summary>
             <div class="left-tab-div">
                 <p class="text-justify">
@@ -80,9 +80,9 @@
                 </div>
             </div>
         </details>
-        <details open>
+        <details>
             <summary>
-                <p class="text-justify title-text">Work History</p>
+                <p class="text-justify title-text">💼 Work History</p>
             </summary>
             {% for each_work in params.about.work: %}
             <a href="{{ each_work.url }}" class="work-link">{{ each_work.name }}</a>
@@ -100,9 +100,9 @@
             </div>
             {% endfor %}
         </details>
-        <details open>
+        <details>
             <summary>
-                <p class="text-justify title-text">Education</p>
+                <p class="text-justify title-text">📚 Education</p>
             </summary>
             {% for each_edu in params.about.education: %}
             <a href="{{ each_edu.url }}" class="work-link">{{ each_edu.name }}</a>

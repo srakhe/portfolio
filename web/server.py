@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, send_file
+from flask import Flask, render_template, url_for, redirect, send_from_directory
 from web.utils.portfolio import Portfolio
 from web.utils.custom import CustomUtils
 
@@ -55,10 +55,9 @@ def refresh():
 
 @app.route("/download/<path:filename>/")
 def download(filename):
-    resume_url = utils.get_file_url(file_name=filename)
-    send_file(resume_url, as_attachment=True)
-    return redirect(url_for("index"))
+    resume_url = utils.get_file_url()
+    return send_from_directory(directory=resume_url, path=filename, mimetype='application/pdf')
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
