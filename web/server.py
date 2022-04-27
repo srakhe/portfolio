@@ -47,6 +47,29 @@ def contact():
     return render_template("contact.html", params=params)
 
 
+@app.route("/blog/")
+def blog():
+    basic_info = portfolio.get_basic_info()
+    blogs_list = utils.get_blog_posts()
+    params = {
+        "basic": basic_info,
+        "blogs_list": blogs_list
+    }
+    return render_template("blog.html", params=params)
+
+
+@app.route("/view/<filename>")
+def view(filename):
+    basic_info = portfolio.get_basic_info()
+    blog_data = utils.get_blog_data(blog_name=filename)
+    params = {
+        "basic": basic_info,
+        "blog_data": blog_data
+    }
+    print(blog_data)
+    return render_template("view.html", params=params)
+
+
 @app.route("/refresh/")
 def refresh():
     portfolio.refresh()
@@ -60,4 +83,5 @@ def download(filename):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    # app.run(host="0.0.0.0")
+    app.run(debug=True)
