@@ -1,2 +1,6 @@
-# basic-py-template
-This is my basic template for project repos.
+# Sam's Portfolio Website 🌐
+
+### Introduction:
+
+Hi there! 👋🏽 This is the repository for my portfolio website. ☺️
+
