@@ -56,7 +56,7 @@
     <div class="card text-white bg-dark mb-3">
         <div class="card-body">
             <h5 class="card-title">{{ blog.title }}</h5>
-            <p class="card-text">{{ blog.content | safe }}</p>
+            <p class="card-text">{{ blog.summary | safe }}</p>
             <a href="{{ blog.url }}" target="_blank" class="btn btn-outline-light">View</a>
         </div>
     </div>

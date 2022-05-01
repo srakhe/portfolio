@@ -61,7 +61,7 @@ def blog():
 @app.route("/view/<filename>")
 def view(filename):
     basic_info = portfolio.get_basic_info()
-    blog_data = utils.get_blog_data(blog_name=filename)
+    blog_data = utils.get_blog_data(file_name=filename)
     params = {
         "basic": basic_info,
         "blog_data": blog_data

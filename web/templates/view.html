@@ -21,8 +21,8 @@
 </head>
 <body>
 <div class="mainDiv">
-    <h1>Hello</h1>
-    {{ params.blog_data }}
+    <h1>{{ params.blog_data.title }}</h1>
+    {{ params.blog_data.content | safe }}
 </div>
 </body>
 </html>
