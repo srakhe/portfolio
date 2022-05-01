@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, send_from_directory
+from flask import Flask, render_template, url_for, redirect, send_from_directory, request
 from web.utils.portfolio import Portfolio
 from web.utils.custom import CustomUtils
 
@@ -47,15 +47,25 @@ def contact():
     return render_template("contact.html", params=params)
 
 
-@app.route("/blog/")
-def blog():
-    basic_info = portfolio.get_basic_info()
-    blogs_list = utils.get_blog_posts()
-    params = {
-        "basic": basic_info,
-        "blogs_list": blogs_list
-    }
-    return render_template("blog.html", params=params)
+@app.route("/blog/", defaults={'tag': None}, methods=['GET', 'POST'])
+@app.route("/blog/<tag>/", methods=['GET', 'POST'])
+def blog(tag):
+    if request.method == "GET":
+        basic_info = portfolio.get_basic_info()
+        tags_list = utils.get_tags()
+        if tag:
+            blogs_list = utils.get_blog_posts(for_tag=tag)
+        else:
+            blogs_list = utils.get_blog_posts()
+        params = {
+            "basic": basic_info,
+            "tags_list": tags_list,
+            "blogs_list": blogs_list
+        }
+        return render_template("blog.html", params=params)
+    if request.method == "POST":
+        tag_name = request.form.get("tag_name")
+        return redirect(url_for("blog", tag=tag_name))
 
 
 @app.route("/view/<filename>")
@@ -66,7 +76,6 @@ def view(filename):
         "basic": basic_info,
         "blog_data": blog_data
     }
-    print(blog_data)
     return render_template("view.html", params=params)
 
 

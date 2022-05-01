@@ -52,14 +52,27 @@
 <div class="mainDiv">
     <h1>Blog</h1>
     <br>
-    {% for blog in params.blogs_list: %}
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-body">
-            <h5 class="card-title">{{ blog.title }}</h5>
-            <p class="card-text">{{ blog.summary | safe }}</p>
-            <a href="{{ blog.url }}" target="_blank" class="btn btn-outline-light">View</a>
+    <form class="form-inline" method="post">
+        <div class="form-group col-md-1">
+            <label for="inputTag">Search by tag:</label>
+            <select id="inputTag" name="tag_name" class="form-control">
+                <option value="" selected>All</option>
+                {% for tag in params.tags_list: %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-outline-light">Go</button>
         </div>
-    </div>
+    </form>
+    <hr class="my-4">
+    {% for blog in params.blogs_list: %}
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ blog.title }}</h5>
+                <p class="card-text">{{ blog.summary | safe }}</p>
+                <a href="{{ blog.url }}" target="_blank" class="btn btn-outline-light">View</a>
+            </div>
+        </div>
     {% endfor %}
 </div>
 </body>
