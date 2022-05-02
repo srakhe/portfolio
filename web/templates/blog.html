@@ -66,11 +66,11 @@
     </form>
     <hr class="my-4">
     {% for blog in params.blogs_list: %}
-        <div class="card text-white bg-dark mb-3">
+        <div class="card text-white bg-dark">
             <div class="card-body">
                 <h5 class="card-title">{{ blog.title }}</h5>
                 <p class="card-text">{{ blog.summary | safe }}</p>
-                <a href="{{ blog.url }}" target="_blank" class="btn btn-outline-light">View</a>
+                <a href="{{ blog.url }}" target="_blank" class="btn btn-outline-light stretched-link">View</a>
             </div>
         </div>
     {% endfor %}
