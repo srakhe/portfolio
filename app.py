@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, send_from_directory, request
-from web.utils.portfolio import Portfolio
-from web.utils.custom import CustomUtils
+from utils.portfolio import Portfolio
+from utils.custom import CustomUtils
 
 app = Flask(__name__)
 portfolio = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
