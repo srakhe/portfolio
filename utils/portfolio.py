@@ -20,7 +20,8 @@ class Portfolio:
             "label": data.get("label"),
             "summary": data.get("summary"),
             "github": next((link["url"] for link in data.get("profiles") if link["network"] == "GitHub"), None),
-            "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None)
+            "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None),
+            "twitter": next((link["url"] for link in data.get("profiles") if link["network"] == "Twitter"), None)
         }
         return return_dict
 
