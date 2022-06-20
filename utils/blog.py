@@ -11,7 +11,7 @@ def get_each_blog_content(html_data):
     return tag, title, summary, content
 
 
-class CustomUtils:
+class BlogUtils:
 
     def __init__(self, root_path):
         self.root_path = root_path
