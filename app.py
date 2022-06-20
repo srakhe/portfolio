@@ -1,17 +1,21 @@
 from flask import Flask, render_template, url_for, redirect, send_from_directory, request
 from utils.portfolio import Portfolio
-from utils.custom import CustomUtils
+from utils.blog import BlogUtils
+from utils.github import Github
 
 app = Flask(__name__)
 portfolio = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
-utils = CustomUtils(root_path=app.root_path)
+utils = BlogUtils(root_path=app.root_path)
+git_utils = Github()
 
 
 @app.route("/")
 def index():
     basic_info = portfolio.get_basic_info()
+    latest_update = git_utils.get_last_update()
     params = {
-        "basic": basic_info
+        "basic": basic_info,
+        "latest_update": latest_update
     }
     return render_template("index.html", params=params)
 
