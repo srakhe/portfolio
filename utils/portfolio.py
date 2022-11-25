@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+import calendar
 
 
 class Portfolio:
@@ -20,20 +21,23 @@ class Portfolio:
             "label": data.get("label"),
             "summary": data.get("summary"),
             "github": next((link["url"] for link in data.get("profiles") if link["network"] == "GitHub"), None),
-            "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None),
-            "twitter": next((link["url"] for link in data.get("profiles") if link["network"] == "Twitter"), None)
-        }
+            "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None)
+            }
         return return_dict
 
     def get_projects(self):
         data = self.data.get("projects")
         projects = []
         for project in data:
+            if project["end"]["year"] and project["end"]["month"]:
+                year = project["end"]["year"]
+                month = calendar.month_name[project["end"]["month"]]
             each_pr = {
-                "name": project["name"],
+                "name": project["displayName"],
                 "url": project["githubUrl"],
                 "summary": project["summary"],
-                "languages": ",".join(project["languages"])
+                "languages": ",".join(project["languages"]),
+                "date": f"{month},{year}"
             }
             projects.append(each_pr)
         return projects
