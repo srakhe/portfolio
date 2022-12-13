@@ -1,15 +1,16 @@
 @media all and (max-width: 750px) {
     #projectsList {
-        padding: 10px 10px 10px 10px;
+        margin-left: 15px;
     }
 }
 
 @media all and (min-width: 750px) {
     #projectsList {
-        padding: 70px 70px 70px 70px;
+        margin-left: 50px;
     }
 }
 
-.card-body {
-    background-color: #EEEEEE;
+.projectCard {
+    background-color: #323232;
+    border-color: white;
 }

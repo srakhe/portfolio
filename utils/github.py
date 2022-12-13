@@ -13,7 +13,6 @@ class Github:
         if latest_date:
             latest_date = datetime.strptime(latest_date, "%Y-%m-%dT%H:%M:%SZ")
             latest_date = latest_date.strftime("%A, %d-%B-%Y")
-            print(latest_date)
         else:
             latest_date = "Error"
         return latest_date

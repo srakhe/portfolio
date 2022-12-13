@@ -14,7 +14,7 @@
         crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/projects.css') }}">
     <link rel="icon"
@@ -54,20 +54,18 @@
     </nav>
     <div class="mainDiv">
         <h1>Projects</h1>
-        <div class="list-group text-center" id="projectsList">
-            {% for project in params.projects: %}
-            <a href="{{ project.get("url") }}" target="_blank"
-                style="margin-bottom: 20px;"
-                class="list-group-item list-group-item-action flex-column align-items-start list-group-item-dark">
-                <h5 class="mb-1">{{ project.get("name") }}</h5>
-                <p class="mb-1">
-                    {{ project.get("summary") }}
-                </p>
-                <p>{{ project.get("languages") }}</p>
-                <small>{{ project.get("date") }}</small>
-            </a>
-            {% endfor %}
+        {% for project in params.projects: %}
+        <div class="card text-white mb-3 projectCard">
+            <div class="card-body">
+              <h5 class="card-title">{{ project.get("name") }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ project.get("date") }}</h6>
+              <p class="card-text">{{ project.get("summary") }} <br>
+                {{ project.get("languages") }}
+              </p>
+              <a href="{{ project.get("url")}}" target="_blank" class="btn btn-outline-light stretched-link">View</a>
+            </div>
         </div>
+        {% endfor %}
     </div>
 </body>
 
