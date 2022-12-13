@@ -1,7 +1,7 @@
 body {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Noto Sans Mono', monospace;
     color: white;
-    background-color: #393E46;
+    background-color: #323232;
 }
 
 @media all and (max-width: 750px) {
