@@ -51,14 +51,13 @@
         </div>
     </div>
 </nav>
-<p class="text-muted" style="position: relative; float: right; padding: 5px 5px 5px 5px;">Last Updated: {{ params.latest_update }}</p>
+<p class="text-muted" style="position: relative; float: right; padding: 5px 5px 5px 5px;">Last Updated At: {{ params.latest_update }}</p>
 <div class="mainDiv">
     <div class="jumbotron text-center">
         <img src="{{ params.basic.image }}" class="img-fluid profilePic" alt="profile picture">
         <h1 class="display-4">{{ params.basic.name }}</h1>
         <p class="lead">{{ params.basic.label }}</p>
-        <p id="summary">{{ params.basic.title }}</p>
-        <p id="summary">{{ params.basic.location }}</p>
+        <p id="summary">{{ params.basic.title }}<br>{{ params.basic.location }}</p>
         <p class="lead">
             <a class="btn btn-outline-light btn-lg position-relative"
                href="{{ url_for('download', filename='resume.pdf') }}" download>Get Resume 📄
