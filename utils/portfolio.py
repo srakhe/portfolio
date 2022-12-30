@@ -20,6 +20,7 @@ class Portfolio:
             "title": data.get("headline"),
             "label": data.get("label"),
             "summary": data.get("summary"),
+            "location": data.get("locationAsString"),
             "github": next((link["url"] for link in data.get("profiles") if link["network"] == "GitHub"), None),
             "linkedin": next((link["url"] for link in data.get("profiles") if link["network"] == "LinkedIn"), None)
             }
