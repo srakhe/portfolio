@@ -57,11 +57,8 @@
         <img src="{{ params.basic.image }}" class="img-fluid profilePic" alt="profile picture">
         <h1 class="display-4">{{ params.basic.name }}</h1>
         <p class="lead">{{ params.basic.label }}</p>
-        <a class="btn btn-outline-light" href="{{ params.basic.github }}" target="_blank">Github 👨‍💻</a>
-        <a class="btn btn-outline-light" href="{{ params.basic.linkedin }}" target="_blank">Linkedin 🧑🏽‍💻</a>
-        <a class="btn btn-outline-light" href="/contact/">Contact Me 👋🏽</a>
-        <hr class="my-4">
         <p id="summary">{{ params.basic.title }}</p>
+        <p id="summary">{{ params.basic.location }}</p>
         <p class="lead">
             <a class="btn btn-outline-light btn-lg position-relative"
                href="{{ url_for('download', filename='resume.pdf') }}" download>Get Resume 📄
@@ -73,6 +70,10 @@
                 </span>
             </a>
         </p>
+        <hr class="my-4">
+        <a class="btn btn-outline-light" href="{{ params.basic.github }}" target="_blank">Github 👨‍💻</a>
+        <a class="btn btn-outline-light" href="{{ params.basic.linkedin }}" target="_blank">Linkedin 🧑🏽‍💻</a>
+        <a class="btn btn-outline-light" href="/contact/">Contact Me 👋🏽</a>
     </div>
 </div>
 </body>
