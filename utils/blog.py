@@ -33,7 +33,7 @@ class BlogUtils:
         for each_file in os.listdir(dir_path):
             each_path = os.path.join(dir_path, each_file)
             i += 1
-            with open(each_path, "r+", encoding="utf8") as blogFile:
+            with open(each_path, "r", encoding="utf8") as blogFile:
                 html_data = blogFile.read()
                 tag, title, summary, content = get_each_blog_content(html_data=html_data)
                 url = f"/view/{each_file.split('.')[0]}"
