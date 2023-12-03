@@ -54,7 +54,7 @@ class BlogUtils:
 
     def get_blog_data(self, file_name):
         file_path = os.path.join(self.root_path, "docs", "blogs", f"{file_name}.html")
-        with open(file_path, "r+", encoding="utf8") as blogFile:
+        with open(file_path, "r", encoding="utf8") as blogFile:
             html_data = blogFile.read()
             tag, title, summary, content = get_each_blog_content(html_data=html_data)
             data = {
