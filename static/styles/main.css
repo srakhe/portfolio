@@ -1,7 +1,7 @@
 body {
     font-family: 'Noto Sans Mono', monospace;
     color: white;
-    background-color: #323232;
+    background-color: #000000;
 }
 
 @media all and (max-width: 750px) {
@@ -18,4 +18,8 @@ body {
 
 .footer {
     background-color: #393E46;
+}
+
+.navbar {
+    background-color: #000000;
 }
