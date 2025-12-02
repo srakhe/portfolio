@@ -2,3 +2,7 @@
     background-color: #000000;
     border-color: white;
 }
+
+.card-text {
+    font-size: small;
+}

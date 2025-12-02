@@ -7,7 +7,7 @@ def get_each_blog_content(html_data):
     tag = bs_obj.find("div", {"id": "tag"}).text
     title = bs_obj.find("h1", {"id": "title"}).text
     summary = bs_obj.find("p", {"id": "summary"}).text
-    content = bs_obj.find("div", {"id": "content"})
+    content = bs_obj.find("div", {"id": "content"}).text
     return tag, title, summary, content
 
 

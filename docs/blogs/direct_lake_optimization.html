@@ -1,0 +1,61 @@
+<div id="tag">Microsoft Fabric</div>
+<h1 id="title">Diagnosing direct-lake spikes in Fabric & fixing them (fast)</h1>
+<div id="date">02 December 2025</div>
+<div id="author">Sambhav Anant Rakhe</div>
+<p id="summary">
+    If you use Direct Lake semantic models, you may see sudden Fabric capacity CPU spikes and slow interactive reports when many users hit the same model at once. The dataset can look small, yet CPU and query times on capacity climb because of query shape, formula-engine work, or high concurrency.
+</p>
+<div id="content">
+If you use Direct Lake semantic models, you may see sudden Fabric capacity CPU spikes and slow interactive reports when many users hit the same model at once. The dataset can look small, yet CPU and query times on capacity climb because of query shape, formula-engine work, or high concurrency. 
+
+We recently faced this exact situation with one of our clients and given that a lot of Fabric users are now leveraging the new Direct Lake mode for their analytics needs, we are going to look into how we fixed this issue and share some resources to help you do this yourself.
+
+### Background -
+- [Fabric Capacity Metrics App.](https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app-compute-page)
+- [Direct Lake overview.](https://learn.microsoft.com/en-us/fabric/fundamentals/direct-lake-overview)
+- [Direct Lake analyze query processing.](https://learn.microsoft.com/en-us/fabric/fundamentals/direct-lake-analyze-query-processing)
+- [Power BI Performance Analyzer guide](https://learn.microsoft.com/en-us/power-bi/create-reports/performance-analyzer); [DAX studio.](https://daxstudio.org/)
+
+### How to identify the real culprit -
+- Start with Fabric Capacity Metrics App - In the Fabric Capacity Metrics App compute page, filter by the [Interactive Usage](https://learn.microsoft.com/en-us/fabric/enterprise/fabric-operations#interactive-operations) since this is where our compute for our direct lake reports will be highlighted.
+- Check for the top consumers in [interactive operations](https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app-timepoint-page#interactive-operations-for-timerange) - here look out for, duration, CU(s) timepoint and number of users.
+- Reproduce and capture the queries - Reproduce the report action for the report you just identified, and run Performance Analyzer in Power BI Desktop to capture slow visual queries. You may also use [SQL Server Profiler](https://learn.microsoft.com/en-us/fabric/fundamentals/direct-lake-analyze-query-processing#analyze-by-using-sql-server-profiler) to capture queries, this is the option we went for.
+- Trace those queries with DAX Studio / Query Diagnostics to map visuals to capacity events and get Storage Engine vs Formula Engine times, scanned rows, and data read sizes.
+- Decide the dominant cost (storage scans, Formula Engine DAX, or concurrency) and pick two highest-impact fixes to implement.
+
+### Actionable insights based on diagnostics -
+
+##### Based on your analysis in DAX Studio
+- If storage scans are taking a long time or if a lot of data rows are being scanned in each query, do the following -
+    - Trim model width,  drop unused columns and remove wide, rarely used fields.
+    - ETL in delta tables, pre-aggregate or precompute in ETL and read pre-aggregated Parquet/Delta files.
+    - Partition and incremental refresh, avoid scanning historical data on every query as explained in [this](https://blog.crossjoin.co.uk/2023/12/17/incremental-refresh-on-delta-tables-in-power-bi/) blog.
+- If your formula engine is taking long time, it implies your DAX is probably too complicated in which case do the following where feasible -
+    - Simplify DAX ([blog](https://blog.crossjoin.co.uk/2024/10/20/finding-the-columns-touched-by-a-dax-query/)) — remove iterator-heavy patterns and avoid unnecessary context transitions.
+    - Materialize aggregates for dashboard-level visuals (summary tables or precomputed measures).
+    - Test the performance by converting heavy measures to computed columns where appropriate. (P.S. - This does not always work but this is what worked in our use case so mentioning here for others to explore in their own reporting!)
+- If none of the above works, try making tweaks to your data model -
+    - Introduce aggregated summary tables for common, high-concurrency queries.
+    - Consider composite models for critical dashboards (move very hot tables to import or split as needed) and compare compute usage after the change.
+    - Reproduce the queries again and reverify if there is anything else you can optimize.
+
+### TL;DR -
+1. Identify the top consumers on the capacity for interactive usage using the Fabric Capacity Metrics App.
+2. Pick the top direct lake model; identify the top report during peak CPU minutes.
+3. Recreate the report action and run Performance Analyzer.
+4. Trace visuals with DAX Studio / Query Diagnostics to determine Storage vs Formula Engine CPU duration split.
+5. Apply the suggested fixes. 
+6. Repeat step 3 - 5 to check if further optimization is possible.
+7. Re-measure in the Capacity app during the next busy window to confirm reduction.
+
+### Closing Takeaway -
+In conclusion, we have summarized what can be done if your direct lake models seem to be using a lot of your compute on your capacity even when you seem to have a small dataset size on the delta tables or have a small number of users interacting with the reports.
+In our case, we were able to successfully identify 2 reports that turned out to be the heaviest consumers.
+
+In one of the reports, it was concluded that we had too many measure fields that could have been calculated columns instead (this worked better in our testing). Additionally, we reduced the number of visuals on the main page keeping only the ones that were important to all end users and moving all others to their own departmental pages.
+In the other report, we had to rethink our implementation of the direct lake model and we identified some fields that had strong business use cases and therefore could be permanently moved to the delta tables directly doing ETL in notebooks instead and then bringing this summarized data into our data model for reporting.
+
+Our main takeaway was despite Fabric evolving at such a fast pace, it is important to not forget our fundamentals as Analytics Engineers to ensure optimized implementation of solutions for best end user experience.
+It is important to identify bottlenecks, test the alternative approaches and implement them as we go!
+If you had a similar experience at your organization and you implemented fixes that helped tackle this problem or would like to implement fixes based on what you have read in this post, I’d love to hear about different experiences and perspectives! 😃
+</div>
