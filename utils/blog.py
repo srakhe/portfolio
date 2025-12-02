@@ -6,9 +6,10 @@ def get_each_blog_content(html_data):
     bs_obj = BeautifulSoup(html_data, "html.parser")
     tag = bs_obj.find("div", {"id": "tag"}).text
     title = bs_obj.find("h1", {"id": "title"}).text
+    date = bs_obj.find("div", {"id": "date"}).text
     summary = bs_obj.find("p", {"id": "summary"}).text
     content = bs_obj.find("div", {"id": "content"}).text
-    return tag, title, summary, content
+    return tag, title, summary, content, date
 
 
 class BlogUtils:
@@ -35,7 +36,7 @@ class BlogUtils:
             i += 1
             with open(each_path, "r", encoding="utf8") as blogFile:
                 html_data = blogFile.read()
-                tag, title, summary, content = get_each_blog_content(html_data=html_data)
+                tag, title, summary, content, date = get_each_blog_content(html_data=html_data)
                 url = f"/view/{each_file.split('.')[0]}"
                 data = {
                     "id": i,
@@ -56,10 +57,12 @@ class BlogUtils:
         file_path = os.path.join(self.root_path, "docs", "blogs", f"{file_name}.html")
         with open(file_path, "r", encoding="utf8") as blogFile:
             html_data = blogFile.read()
-            tag, title, summary, content = get_each_blog_content(html_data=html_data)
+            tag, title, summary, content, date = get_each_blog_content(html_data=html_data)
             data = {
                 "tag": tag,
                 "title": title,
+                "date": date,
+                "author": "Sambhav Anant Rakhe",
                 "summary": summary,
                 "content": content
             }

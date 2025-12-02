@@ -21,6 +21,9 @@
 <body>
 <div class="mainDiv">
     <h1>{{ params.blog_data.title }}</h1>
+    <p class="details">{{ params.blog_data.date }}
+        <br>
+        {{ params.blog_data.author }}</p>
     <hr class="my-4">
     <div class="contentDiv">
         {{ params.blog_data.content_html | safe }}

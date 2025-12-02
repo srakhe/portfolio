@@ -1,3 +1,9 @@
 .contentDiv {
     text-align: justify-all;
 }
+
+.details {
+    font-size: small;
+    font-style: italic;
+    text-align: end;
+}
