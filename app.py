@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, send_from_directory
 from utils.portfolio import Portfolio
 from utils.blog import BlogUtils
 from utils.github import Github
+import markdown as md
 
 app = Flask(__name__)
 portfolio = Portfolio(url="https://gitconnected.com/v1/portfolio/srakhe")
@@ -76,6 +77,13 @@ def blog(tag):
 def view(filename):
     basic_info = portfolio.get_basic_info()
     blog_data = utils.get_blog_data(file_name=filename)
+
+    if "content" in blog_data:
+        blog_data["content_html"] = md.markdown(
+            blog_data["content"],
+            extensions=["fenced_code", "tables", "toc"]
+        )
+
     params = {
         "basic": basic_info,
         "blog_data": blog_data
