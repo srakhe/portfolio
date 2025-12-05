@@ -69,11 +69,16 @@ class Portfolio:
         return_work = []
         if work:
             for each_dict in work:
-                start = datetime.strptime(each_dict.get("startDate").strip(), "%Y-%m-%d")
-                end = datetime.strptime(each_dict.get("endDate").strip(), "%Y-%m-%d")
-                months_between = (end.year - start.year) * 12 + end.month - start.month + 1
-                years_between, months_between = divmod(months_between, 12)
-                duration = f"{years_between} Years {months_between} Months"
+                start = each_dict.get("startDate")
+                end = each_dict.get("endDate")
+                if start and end:
+                    start = datetime.strptime(str(each_dict.get("startDate")).strip(), "%Y-%m-%d")
+                    end = datetime.strptime(str(each_dict.get("endDate")).strip(), "%Y-%m-%d")
+                    months_between = (end.year - start.year) * 12 + end.month - start.month + 1
+                    years_between, months_between = divmod(months_between, 12)
+                    duration = f"{years_between} Years {months_between} Months"
+                else:
+                    duration = "On-going"
                 return_work.append({
                     "name": each_dict.get("name"),
                     "position": each_dict.get("position"),
@@ -96,7 +101,7 @@ class Portfolio:
                     years_between, months_between = divmod(months_between, 12)
                     duration = f"{years_between} Years {months_between} Months"
                 else:
-                    duration = f"On-Going"
+                    duration = f"On-going"
                 return_education.append({
                     "name": each_dict.get("institution"),
                     "study": each_dict.get("studyType") + " in " + each_dict.get("area"),
