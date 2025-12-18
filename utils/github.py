@@ -8,7 +8,9 @@ class Github:
         self.latest_update_url = "https://api.github.com/repos/srakhe/portfolio/commits"
 
     def get_last_update(self):
-        resp = requests.get(self.latest_update_url).json()[0]
+        resp = requests.get(self.latest_update_url).json()
+        if resp:
+            resp = resp[0]
         latest_date = resp.get("commit").get("author").get("date")
         if latest_date:
             latest_date = datetime.strptime(latest_date, "%Y-%m-%dT%H:%M:%SZ")
